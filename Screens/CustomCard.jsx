@@ -1,7 +1,7 @@
 import * as React from 'react';
 import  {View,StyleSheet,Image,Text,TouchableOpacity} from 'react-native';
 
-export const CustomCard = (props) => {
+const CustomCard = (props) => {
   return (
           <View style={[props.elevated && styles.container,props.style]}>
              {props.children}
@@ -17,3 +17,4 @@ const styles = StyleSheet.create({
     elevation: 5,
   }
 });
+export default CustomCard;

@@ -1,14 +1,40 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
+
 import  {View,StyleSheet,Image,Text,TouchableOpacity,TextInput,FlatList} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {PRIMARYCOLOR,PRIMARYBORDERADIUS} from '../Constants.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// import {PRIMARYCOLOR,PRIMARYBORDERADIUS} from '../Constants.js';
 // import { Ionicons } from '@expo/vector-icons';
-import {CustomCard} from './CustomCard';
+import CustomCard from './CustomCard.jsx';
 import bus from '../assets/bus.png';
 import mrt from '../assets/mrt.jpg';
 
 export default HomeScreen = () => {
   const nav = useNavigation();
+
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    // Function to fetch token from AsyncStorage
+    const getToken = async () => {
+      try {
+        const value = await AsyncStorage.getItem('token');
+        if (value !== null) {
+          setToken(value);
+          console.log('Token:', value);
+        }
+      } catch (error) {
+        console.error('Error retrieving token:', error);
+      }
+    };
+
+    // Call the function to fetch token
+    getToken();
+  }, []);
+
+
   const DATA = [
     {
       id: 1,
@@ -24,7 +50,8 @@ export default HomeScreen = () => {
       name: "MRT",
       backgroundColor:"#3A9EC2",
       imagesrc:mrt,
-      onPressHandler:()=>{
+      onPressHandler
+      :()=>{
         nav.navigate("schedule",{title:"MRT",imagesrc:mrt,backgroundColor:"#3A9EC2"});
       }
     }

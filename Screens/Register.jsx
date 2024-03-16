@@ -10,44 +10,50 @@ import {
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
- import axios from 'axios';
+import axios from 'axios';
 
-const Login = () => {
+const Register = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
- 
 
-  const handleLogin = async () => {
+
+const handleLogin = async () => {
     try {
-      const response = await axios.post('http:192.168.137.118:4000/auth/v1/login', {
-        email: email,
-        password: password,
-      });
+        const response = await axios.post('http:192.168.137.118:4000/auth/v1/register', {
+            email: email,
+            password: password,
+            username: username,
+        });
 
-      if(response.data.success === 'false') {
-        throw new Error('Invalid credentials');
-      }
-      else{
-        console.log(response.data)
-        const token = response.data.data;
-        await AsyncStorage.setItem('token', token);
-        navigation.navigate('Home');
-        Alert.alert('Login Success');
-      }
-      
-     
+        if(response.status !== 200) {
+            throw new Error('Invalid credentials');
+        }else{
+            console.log(response.data)
+            Alert.alert('Register Success');
+        }
+        
+        // Navigate to the home screen
+        // navigation.navigate('Home');
+        
     } catch (error) {
-      // console.error('Login failed:', error.message);
-      Alert.alert('Login failed:', error.message);
+        console.error('Register failed:', error.message);
     }
-  };
+};
 
   return (
     <View style={styles.container}>
       <View style={styles.topHalf}>
-        <Text style={styles.welcomeText}>Welcome Back!</Text>
+        <Text style={styles.welcomeText}>Lets Get Started!</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          placeholderTextColor="#94a3b8"
+          value={username}
+          onChangeText={setUsername}
+        />
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -68,7 +74,7 @@ const Login = () => {
         </View>
 
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-          <Text style={styles.loginButtonText}>Login</Text>
+          <Text style={styles.loginButtonText}>Register</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.bottomHalf}>
@@ -147,4 +153,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Register;
