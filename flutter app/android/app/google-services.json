@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "211179257890",
+    "project_id": "test-2b182",
+    "storage_bucket": "test-2b182.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211179257890:android:1d38fe6181b1d33a56ca7b",
+        "android_client_info": {
+          "package_name": "com.example.divide_ride"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHRBMEkZTReaVh5lagRtv01_Yyq5ZoF-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
